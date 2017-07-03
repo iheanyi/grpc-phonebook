@@ -1,0 +1,16 @@
+{
+  "name": "phonebookctl",
+  "version": "1.0.0",
+  "description": "Just an example CLI for a phonebook gRPC client",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Iheanyi Ekechukwu",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "grpc": "^1.4.1",
+    "inquirer": "^3.1.1"
+  }
+}

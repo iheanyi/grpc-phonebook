@@ -1,0 +1,21 @@
+package api
+
+import (
+	"sync"
+
+	phonebook "github.com/iheanyi/grpc-phonebook"
+	"github.com/iheanyi/grpc-phonebook/api"
+)
+
+type server struct {
+	contactsByNameMu sync.Mutex
+	contactsByName   map[string]*phonebook.Contact
+}
+
+func New() PhoneBookServer {
+	return &server{}
+}
+
+func (svc *server) CreateContact(ctx ctx.Context, req *api.CreateContactReq) (*api.CreateContactRes, error) {
+
+}

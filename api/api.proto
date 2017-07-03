@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package api;
+
+import "github.com/iheanyi/grpc-phonebook/phonebook.proto";
+
+service PhoneBook {
+  rpc CreateContact(CreateContactReq) returns (CreateContactRes);
+}
+
+message CreateContactReq {
+  string name = 1;
+  string email = 2;
+  string phone_number = 3;
+  string phone_number_type = 4;
+}
+
+message CreateContactRes {
+  phonebook.Contact contact = 1;
+
+}
