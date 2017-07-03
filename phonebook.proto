@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package phonebook;
+package grpc_phonebook;
 
 message Contact {
   string name = 1;

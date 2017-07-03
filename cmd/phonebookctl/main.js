@@ -1,32 +1,14 @@
-/*var PROTO_PATH = __dirname + '../../api/api.proto';
+var PROTO_PATH_API = __dirname + '/../../api/api_pb.js';
+var PROTO_PATH = __dirname + '/../../phonebook.proto';
+var grpc = require('grpc');
+console.log(PROTO_PATH);
+console.log("Attempting to load protopath");
+var protoDesc = grpc.load(PROTO_PATH);
+console.log(protoDesc);
+var apiDesc = grpc.load(PROTO_PATH_API);
+var client = new phonebook.PhoneBook('localhost:50051', grpc.credentials.Insecure());
 
-  var grpc = require('grpc');
-
-  var client = new phonebook.PhoneBook('localhost:50051', grpc.credentials.Insecure());*/
-
-//var program = require('commander');
 var inquirer = require('inquirer');
-
-
-var promptQuestions = [
-  {
-    name: 'action',
-    type: 'rawlist',
-    message: 'What would you like to do?',
-    choices: [
-      {
-        name: 'Add new contact',
-        value: 'create'
-      },
-      {
-        name: 'List Contacts',
-        value: 'list'
-      }
-    ]
-  },
-];
-
-
 
 function promptCreateContact() {
   var createQuestions = [
@@ -97,7 +79,6 @@ function promptCreateContact() {
   });
 }
 
-
 function promptListContacts() {
   // Maybe list contacts should be `view` contacts?
   // And then have a separate action for editing?
@@ -124,6 +105,23 @@ function promptListContacts() {
 }
 
 function ask() {
+  var promptQuestions = [
+    {
+      name: 'action',
+      type: 'rawlist',
+      message: 'What would you like to do?',
+      choices: [
+        {
+          name: 'Add new contact',
+          value: 'create'
+        },
+        {
+          name: 'List Contacts',
+          value: 'list'
+        }
+      ]
+    },
+  ];
   inquirer.prompt(promptQuestions).then(function(answers) {
     console.log("first answers: " + JSON.stringify(answers));
     if (answers.action == 'create') {

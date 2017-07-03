@@ -19,5 +19,6 @@ func main() {
 
 	svc := api.New()
 	api.RegisterPhoneBookServer(srv, svc)
+	log.Print("Starting up the server")
 	srv.Serve(lis)
 }
