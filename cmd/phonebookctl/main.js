@@ -1,11 +1,12 @@
-var PROTO_PATH_API = __dirname + '/../../api/api_pb.js';
+var PROTO_PATH_API = __dirname + '/../../api/api.proto';
 var PROTO_PATH = __dirname + '/../../phonebook.proto';
 var grpc = require('grpc');
+var path = require('path');
 console.log(PROTO_PATH);
 console.log("Attempting to load protopath");
 var protoDesc = grpc.load(PROTO_PATH);
 console.log(protoDesc);
-var apiDesc = grpc.load(PROTO_PATH_API);
+var apiDesc = grpc.load(path.resolve(PROTO_PATH_API));
 var client = new phonebook.PhoneBook('localhost:50051', grpc.credentials.Insecure());
 
 var inquirer = require('inquirer');
