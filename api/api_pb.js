@@ -772,7 +772,7 @@ proto.api.Contact.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
     email: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    phoneNumberList: jspb.Message.toObjectList(msg.getPhoneNumberList(),
+    phoneNumbersList: jspb.Message.toObjectList(msg.getPhoneNumbersList(),
     proto.api.PhoneNumber.toObject, includeInstance)
   };
 
@@ -821,7 +821,7 @@ proto.api.Contact.deserializeBinaryFromReader = function(msg, reader) {
     case 3:
       var value = new proto.api.PhoneNumber;
       reader.readMessage(value,proto.api.PhoneNumber.deserializeBinaryFromReader);
-      msg.addPhoneNumber(value);
+      msg.addPhoneNumbers(value);
       break;
     default:
       reader.skipField();
@@ -875,7 +875,7 @@ proto.api.Contact.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
-  f = this.getPhoneNumberList();
+  f = this.getPhoneNumbersList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -917,19 +917,19 @@ proto.api.Contact.prototype.setEmail = function(value) {
 
 
 /**
- * repeated PhoneNumber phone_number = 3;
+ * repeated PhoneNumber phone_numbers = 3;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.api.PhoneNumber>}
  */
-proto.api.Contact.prototype.getPhoneNumberList = function() {
+proto.api.Contact.prototype.getPhoneNumbersList = function() {
   return /** @type{!Array.<!proto.api.PhoneNumber>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.api.PhoneNumber, 3));
 };
 
 
 /** @param {!Array.<!proto.api.PhoneNumber>} value */
-proto.api.Contact.prototype.setPhoneNumberList = function(value) {
+proto.api.Contact.prototype.setPhoneNumbersList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
@@ -939,13 +939,13 @@ proto.api.Contact.prototype.setPhoneNumberList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.api.PhoneNumber}
  */
-proto.api.Contact.prototype.addPhoneNumber = function(opt_value, opt_index) {
+proto.api.Contact.prototype.addPhoneNumbers = function(opt_value, opt_index) {
   return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.api.PhoneNumber, opt_index);
 };
 
 
-proto.api.Contact.prototype.clearPhoneNumberList = function() {
-  this.setPhoneNumberList([]);
+proto.api.Contact.prototype.clearPhoneNumbersList = function() {
+  this.setPhoneNumbersList([]);
 };
 
 

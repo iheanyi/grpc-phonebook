@@ -28,7 +28,7 @@ message Contact {
   string name = 1;
   string email = 2;
 
-  repeated PhoneNumber phone_number = 3;
+  repeated PhoneNumber phone_numbers = 3;
 }
 
 message PhoneNumber {
