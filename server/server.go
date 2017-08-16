@@ -17,16 +17,18 @@ type server struct {
 }
 
 func New() api.PhoneBookServer {
-	return &server{}
+	return &server{
+		contactsByName: make(map[string]*api.Contact),
+	}
 }
 
 func (svc *server) CreateContact(ctx oldctx.Context, req *api.CreateContactReq) (*api.CreateContactRes, error) {
 	log.Printf("in the create contact method, with req: %f", req)
 
 	contact := &api.Contact{
-		Name:        req.Name,
-		Email:       req.Email,
-		PhoneNumber: req.PhoneNumbers,
+		Name:         req.Name,
+		Email:        req.Email,
+		PhoneNumbers: req.PhoneNumbers,
 	}
 
 	svc.contactsByNameMu.Lock()
@@ -42,5 +44,9 @@ func (svc *server) CreateContact(ctx oldctx.Context, req *api.CreateContactReq) 
 }
 
 func (svc *server) ListContacts(ctx oldctx.Context, req *api.ListContactsReq) (*api.ListContactsRes, error) {
-	return nil, nil
+	res := &api.ListContactsRes{
+		Contacts: svc.contacts,
+	}
+
+	return res, nil
 }

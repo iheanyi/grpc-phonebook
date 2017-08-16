@@ -5,6 +5,7 @@ import (
 	"net"
 
 	"github.com/iheanyi/grpc-phonebook/api"
+	"github.com/iheanyi/grpc-phonebook/server"
 
 	"google.golang.org/grpc"
 )
@@ -17,7 +18,7 @@ func main() {
 
 	srv := grpc.NewServer()
 
-	svc := api.New()
+	svc := server.New()
 	api.RegisterPhoneBookServer(srv, svc)
 	log.Print("Starting up the server")
 	srv.Serve(lis)
