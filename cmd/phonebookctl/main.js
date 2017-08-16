@@ -1,13 +1,8 @@
-var PROTO_PATH_API = __dirname + '/../../api/api.proto';
-var PROTO_PATH = __dirname + '/../../phonebook.proto';
+var PROTO_PATH = __dirname + '/../../api/api.proto';
 var grpc = require('grpc');
 var path = require('path');
-console.log(PROTO_PATH);
-console.log("Attempting to load protopath");
-var protoDesc = grpc.load(PROTO_PATH);
-console.log(protoDesc);
-var apiDesc = grpc.load(path.resolve(PROTO_PATH_API));
-var client = new phonebook.PhoneBook('localhost:50051', grpc.credentials.Insecure());
+var api = grpc.load(path.resolve(PROTO_PATH)).api;
+var client = new api.PhoneBook('localhost:50051', grpc.credentials.createInsecure());
 
 var inquirer = require('inquirer');
 
@@ -75,6 +70,44 @@ function promptCreateContact() {
       // Create the contact in the gRPC service.
       // We'll call the gRPC CreateContact endpoint from here.
       // Redirect to the root menu
+      var request = new api.CreateContactReq();
+      var contact = new api.Contact();
+      var phoneArr = [];
+
+      if (answers.createHomeNumber) {
+        var homeNum = new api.PhoneNumber();
+        console.log(api.PhoneNumber.PhoneType)
+        console.log(homeNum);
+        homeNum.type = api.PhoneNumber.PhoneType.HOME;
+        homeNum.number = answers.createHomeNumber;
+        phoneArr.push(homeNum)
+      }
+
+      if (answers.createWorkNumber) {
+        var workNum = new api.PhoneNumber();
+        workNum.type = api.PhoneNumber.PhoneType.WORK;
+        workNum.number = answers.createWorkNumber;
+        phoneArr.push(workNum)
+      }
+
+      if (answers.createMobileNumber) {
+        var mobileNum = new api.PhoneNumber();
+        mobileNum.type = api.PhoneNumber.PhoneType.MOBILE;
+        mobileNum.number = answers.createMobileNumber;
+        phoneArr.push(mobileNum)
+      }
+
+      request.name = answers.createName;
+      request.email = answers.createEmail;
+      request.phone_numbers = phoneArr;
+      client.createContact(request, function(err, response) {
+        if (err) {
+          console.log("Error mentioned!");
+          console.log(err);
+        }
+        console.log("Outputting response");
+        console.log(response);
+      });
       ask(); 
     }
   });
@@ -100,7 +133,6 @@ function promptListContacts() {
     // the user what the hell they want to do about it?
   
     // Once we setup another prompt for the inquirer 
-    console.log(answers);
     ask();
   });
 }
