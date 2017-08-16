@@ -1,25 +1,29 @@
-package api
+package server
 
 import (
 	"log"
 	"sync"
 
 	oldctx "golang.org/x/net/context"
+
+	api "github.com/iheanyi/grpc-phonebook/api"
 )
 
 type server struct {
 	contactsByNameMu sync.Mutex
-	contactsByName   map[string]*Contact
+	contactsByName   map[string]*api.Contact
+
+	contacts []*api.Contact
 }
 
-func New() PhoneBookServer {
+func New() api.PhoneBookServer {
 	return &server{}
 }
 
-func (svc *server) CreateContact(ctx oldctx.Context, req *CreateContactReq) (*CreateContactRes, error) {
+func (svc *server) CreateContact(ctx oldctx.Context, req *api.CreateContactReq) (*api.CreateContactRes, error) {
 	log.Printf("in the create contact method, with req: %f", req)
 
-	contact := &Contact{
+	contact := &api.Contact{
 		Name:        req.Name,
 		Email:       req.Email,
 		PhoneNumber: req.PhoneNumbers,
@@ -28,7 +32,8 @@ func (svc *server) CreateContact(ctx oldctx.Context, req *CreateContactReq) (*Cr
 	svc.contactsByNameMu.Lock()
 	defer svc.contactsByNameMu.Unlock()
 	svc.contactsByName[contact.Name] = contact
-	res := &CreateContactRes{
+	svc.contacts = append(svc.contacts, contact)
+	res := &api.CreateContactRes{
 		Contact: contact,
 	}
 
@@ -36,7 +41,6 @@ func (svc *server) CreateContact(ctx oldctx.Context, req *CreateContactReq) (*Cr
 	return res, nil
 }
 
-func (svc *server) ListContacts(ctx oldctx.Context, req *ListContactsReq) (*ListContactsRes, error) {
-
+func (svc *server) ListContacts(ctx oldctx.Context, req *api.ListContactsReq) (*api.ListContactsRes, error) {
 	return nil, nil
 }

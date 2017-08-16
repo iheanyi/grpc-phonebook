@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package api;
 
-import "github.com/iheanyi/grpc-phonebook/phonebook.proto";
-
 service PhoneBook {
   rpc CreateContact(CreateContactReq) returns (CreateContactRes);
   rpc ListContacts(ListContactsReq) returns (ListContactsRes);
@@ -12,16 +10,34 @@ service PhoneBook {
 message CreateContactReq {
   string name = 1;
   string email = 2;
-  repeated grpc_phonebook.PhoneNumber phone_numbers = 3;
+  repeated PhoneNumber phone_numbers = 3;
 }
 
 message CreateContactRes {
-  grpc_phonebook.Contact contact = 1;
+  Contact contact = 1;
 
 }
 
 message ListContactsReq {}
 
 message ListContactsRes {
-  repeated grpc_phonebook.Contact contacts = 1;
+  repeated Contact contacts = 1;
+}
+
+message Contact {
+  string name = 1;
+  string email = 2;
+
+  repeated PhoneNumber phone_number = 3;
+}
+
+message PhoneNumber {
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  string number = 1;
+  PhoneType type = 2;
 }
