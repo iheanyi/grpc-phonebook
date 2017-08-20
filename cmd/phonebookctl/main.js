@@ -1,10 +1,11 @@
 var PROTO_PATH = __dirname + '/../../api/api.proto';
 var grpc = require('grpc');
 var path = require('path');
+var inquirer = require('inquirer');
+
 var api = grpc.load(path.resolve(PROTO_PATH)).api;
 var client = new api.PhoneBook('localhost:50051', grpc.credentials.createInsecure());
-
-var inquirer = require('inquirer');
+var PhoneType = api.PhoneNumber.PhoneType;
 
 function promptCreateContact() {
   var createQuestions = [
@@ -62,8 +63,6 @@ function promptCreateContact() {
     }
   ];
   inquirer.prompt(createQuestions).then(function(answers) {
-    console.log("other answers");
-    console.log(answers);
     if (!answers.createConfirm) {
       promptCreateContact(); 
     } else {
@@ -76,23 +75,21 @@ function promptCreateContact() {
 
       if (answers.createHomeNumber) {
         var homeNum = new api.PhoneNumber();
-        console.log(api.PhoneNumber.PhoneType)
-        console.log(homeNum);
-        homeNum.type = api.PhoneNumber.PhoneType.HOME;
+        homeNum.type = PhoneType.HOME;
         homeNum.number = answers.createHomeNumber;
         phoneArr.push(homeNum)
       }
 
       if (answers.createWorkNumber) {
         var workNum = new api.PhoneNumber();
-        workNum.type = api.PhoneNumber.PhoneType.WORK;
+        workNum.type = PhoneType.WORK;
         workNum.number = answers.createWorkNumber;
         phoneArr.push(workNum)
       }
 
       if (answers.createMobileNumber) {
         var mobileNum = new api.PhoneNumber();
-        mobileNum.type = api.PhoneNumber.PhoneType.MOBILE;
+        mobileNum.type = PhoneType.MOBILE;
         mobileNum.number = answers.createMobileNumber;
         phoneArr.push(mobileNum)
       }
@@ -104,9 +101,8 @@ function promptCreateContact() {
         if (err) {
           console.log("Error mentioned!");
           console.log(err);
+          return;
         }
-        console.log("Outputting response");
-        console.log(response);
       });
       ask(); 
     }
@@ -122,19 +118,40 @@ function promptListContacts() {
     message: 'Which contact do you want to view?',
     choices: function(answers) {
       // Call the ListContacts gRPC endpoint here, map it to an array to return.
-      return []
+      var done = this.async();
+      console.log("Get the choices here.");
+      client.listContacts({}, function(err, response) {
+        if (err) {
+          // We want to return the error here.
+          console.log("Error returned!");
+          console.log(err);
+          return;
+        }
+
+        var choices = response.contacts.map(function(contact) {
+          return {
+            name: contact.name,
+            value: contact.name,
+          };
+        });
+
+        done(null, choices);
+      });
     },
     type: 'rawlist'
   }];
 
   inquirer.prompt(listQuestions).then(function(answers) {
-    console.log("In the listContact method.");
     // We probably will want to output the user information here and then ask
     // the user what the hell they want to do about it?
-  
+
     // Once we setup another prompt for the inquirer 
     ask();
   });
+}
+
+function promptShowContact() {
+
 }
 
 function ask() {
@@ -156,7 +173,6 @@ function ask() {
     },
   ];
   inquirer.prompt(promptQuestions).then(function(answers) {
-    console.log("first answers: " + JSON.stringify(answers));
     if (answers.action == 'create') {
       promptCreateContact(); 
     } else if (answers.action = 'list') {
