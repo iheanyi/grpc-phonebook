@@ -3,9 +3,9 @@
 	"GoVersion": "go1.9",
 	"GodepVersion": "v79",
 	"Packages": [
-		"./api/...",
 		"./server/...",
-		"./cmd/phonebooksrv/..."
+		"./cmd/...",
+		"./api/..."
 	],
 	"Deps": [
 		{
