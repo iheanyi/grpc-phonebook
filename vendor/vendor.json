@@ -48,14 +48,16 @@
 			"revision": "10c134ea0df15f7e34d789338c7a2d76cc7a3ab9"
 		},
 		{
-			"checksumSHA1": "h8O5SG1xfz9BgnPwIf2vwJGZjbs=",
+			"checksumSHA1": "m5tyV19GjJfNcqztTVmQfAkpxXw=",
 			"path": "golang.org/x/net/http2",
-			"revision": "10c134ea0df15f7e34d789338c7a2d76cc7a3ab9"
+			"revision": "57efc9c3d9f91fb3277f8da1cff370539c4d3dc5",
+			"revisionTime": "2017-08-18T05:32:00Z"
 		},
 		{
-			"checksumSHA1": "pRzVTCg66HpHQxHxOlLvISSJFh4=",
+			"checksumSHA1": "ezWhc7n/FtqkLDQKeU2JbW+80tE=",
 			"path": "golang.org/x/net/http2/hpack",
-			"revision": "10c134ea0df15f7e34d789338c7a2d76cc7a3ab9"
+			"revision": "57efc9c3d9f91fb3277f8da1cff370539c4d3dc5",
+			"revisionTime": "2017-08-18T05:32:00Z"
 		},
 		{
 			"checksumSHA1": "GIGmSrYACByf5JDIP9ByBZksY80=",
