@@ -5,6 +5,9 @@ package api;
 service PhoneBook {
   rpc CreateContact(CreateContactReq) returns (CreateContactRes);
   rpc ListContacts(ListContactsReq) returns (ListContactsRes);
+  rpc DeleteContact(DeleteContactReq) returns (DeleteContactRes);
+  rpc ShowContact(ShowContactReq) returns (ShowContactRes);
+  rpc UpdateContact(UpdateContactReq) returns (UpdateContactRes);
 }
 
 message CreateContactReq {
@@ -26,6 +29,30 @@ message ListContactsReq {}
 
 message ListContactsRes {
   repeated Contact contacts = 1;
+}
+
+message DeleteContactReq {
+  string name = 1; // Gonna use just the name for now, lol.
+}
+
+message DeleteContactRes {
+  Contact contact = 1;
+}
+
+message ShowContactReq {
+  string name = 1;
+}
+
+message ShowContactRes {
+  Contact contact = 1;
+}
+
+message UpdateContactReq {
+  Contact contact = 1;
+}
+
+message UpdateContactRes{
+  Contact contact = 1;
 }
 
 message Contact {

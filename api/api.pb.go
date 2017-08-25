@@ -13,6 +13,12 @@ It has these top-level messages:
 	CreateContactRes
 	ListContactsReq
 	ListContactsRes
+	DeleteContactReq
+	DeleteContactRes
+	ShowContactReq
+	ShowContactRes
+	UpdateContactReq
+	UpdateContactRes
 	Contact
 	PhoneNumber
 */
@@ -60,7 +66,7 @@ var PhoneNumber_PhoneType_value = map[string]int32{
 func (x PhoneNumber_PhoneType) String() string {
 	return proto.EnumName(PhoneNumber_PhoneType_name, int32(x))
 }
-func (PhoneNumber_PhoneType) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{5, 0} }
+func (PhoneNumber_PhoneType) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{11, 0} }
 
 type CreateContactReq struct {
 	Name         string         `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
@@ -144,6 +150,88 @@ func (m *ListContactsRes) GetContacts() []*Contact {
 	return nil
 }
 
+type DeleteContactReq struct {
+	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+}
+
+func (m *DeleteContactReq) Reset()                    { *m = DeleteContactReq{} }
+func (m *DeleteContactReq) String() string            { return proto.CompactTextString(m) }
+func (*DeleteContactReq) ProtoMessage()               {}
+func (*DeleteContactReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+type DeleteContactRes struct {
+	Contact *Contact `protobuf:"bytes,1,opt,name=contact" json:"contact,omitempty"`
+}
+
+func (m *DeleteContactRes) Reset()                    { *m = DeleteContactRes{} }
+func (m *DeleteContactRes) String() string            { return proto.CompactTextString(m) }
+func (*DeleteContactRes) ProtoMessage()               {}
+func (*DeleteContactRes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+func (m *DeleteContactRes) GetContact() *Contact {
+	if m != nil {
+		return m.Contact
+	}
+	return nil
+}
+
+type ShowContactReq struct {
+	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+}
+
+func (m *ShowContactReq) Reset()                    { *m = ShowContactReq{} }
+func (m *ShowContactReq) String() string            { return proto.CompactTextString(m) }
+func (*ShowContactReq) ProtoMessage()               {}
+func (*ShowContactReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+
+type ShowContactRes struct {
+	Contact *Contact `protobuf:"bytes,1,opt,name=contact" json:"contact,omitempty"`
+}
+
+func (m *ShowContactRes) Reset()                    { *m = ShowContactRes{} }
+func (m *ShowContactRes) String() string            { return proto.CompactTextString(m) }
+func (*ShowContactRes) ProtoMessage()               {}
+func (*ShowContactRes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
+
+func (m *ShowContactRes) GetContact() *Contact {
+	if m != nil {
+		return m.Contact
+	}
+	return nil
+}
+
+type UpdateContactReq struct {
+	Contact *Contact `protobuf:"bytes,1,opt,name=contact" json:"contact,omitempty"`
+}
+
+func (m *UpdateContactReq) Reset()                    { *m = UpdateContactReq{} }
+func (m *UpdateContactReq) String() string            { return proto.CompactTextString(m) }
+func (*UpdateContactReq) ProtoMessage()               {}
+func (*UpdateContactReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
+
+func (m *UpdateContactReq) GetContact() *Contact {
+	if m != nil {
+		return m.Contact
+	}
+	return nil
+}
+
+type UpdateContactRes struct {
+	Contact *Contact `protobuf:"bytes,1,opt,name=contact" json:"contact,omitempty"`
+}
+
+func (m *UpdateContactRes) Reset()                    { *m = UpdateContactRes{} }
+func (m *UpdateContactRes) String() string            { return proto.CompactTextString(m) }
+func (*UpdateContactRes) ProtoMessage()               {}
+func (*UpdateContactRes) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
+
+func (m *UpdateContactRes) GetContact() *Contact {
+	if m != nil {
+		return m.Contact
+	}
+	return nil
+}
+
 type Contact struct {
 	Name         string         `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
 	Email        string         `protobuf:"bytes,2,opt,name=email" json:"email,omitempty"`
@@ -156,7 +244,7 @@ type Contact struct {
 func (m *Contact) Reset()                    { *m = Contact{} }
 func (m *Contact) String() string            { return proto.CompactTextString(m) }
 func (*Contact) ProtoMessage()               {}
-func (*Contact) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+func (*Contact) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
 
 func (m *Contact) GetPhoneNumbers() []*PhoneNumber {
 	if m != nil {
@@ -194,13 +282,19 @@ type PhoneNumber struct {
 func (m *PhoneNumber) Reset()                    { *m = PhoneNumber{} }
 func (m *PhoneNumber) String() string            { return proto.CompactTextString(m) }
 func (*PhoneNumber) ProtoMessage()               {}
-func (*PhoneNumber) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+func (*PhoneNumber) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
 
 func init() {
 	proto.RegisterType((*CreateContactReq)(nil), "api.CreateContactReq")
 	proto.RegisterType((*CreateContactRes)(nil), "api.CreateContactRes")
 	proto.RegisterType((*ListContactsReq)(nil), "api.ListContactsReq")
 	proto.RegisterType((*ListContactsRes)(nil), "api.ListContactsRes")
+	proto.RegisterType((*DeleteContactReq)(nil), "api.DeleteContactReq")
+	proto.RegisterType((*DeleteContactRes)(nil), "api.DeleteContactRes")
+	proto.RegisterType((*ShowContactReq)(nil), "api.ShowContactReq")
+	proto.RegisterType((*ShowContactRes)(nil), "api.ShowContactRes")
+	proto.RegisterType((*UpdateContactReq)(nil), "api.UpdateContactReq")
+	proto.RegisterType((*UpdateContactRes)(nil), "api.UpdateContactRes")
 	proto.RegisterType((*Contact)(nil), "api.Contact")
 	proto.RegisterType((*PhoneNumber)(nil), "api.PhoneNumber")
 	proto.RegisterEnum("api.PhoneNumber_PhoneType", PhoneNumber_PhoneType_name, PhoneNumber_PhoneType_value)
@@ -219,6 +313,9 @@ const _ = grpc.SupportPackageIsVersion3
 type PhoneBookClient interface {
 	CreateContact(ctx context.Context, in *CreateContactReq, opts ...grpc.CallOption) (*CreateContactRes, error)
 	ListContacts(ctx context.Context, in *ListContactsReq, opts ...grpc.CallOption) (*ListContactsRes, error)
+	DeleteContact(ctx context.Context, in *DeleteContactReq, opts ...grpc.CallOption) (*DeleteContactRes, error)
+	ShowContact(ctx context.Context, in *ShowContactReq, opts ...grpc.CallOption) (*ShowContactRes, error)
+	UpdateContact(ctx context.Context, in *UpdateContactReq, opts ...grpc.CallOption) (*UpdateContactRes, error)
 }
 
 type phoneBookClient struct {
@@ -247,11 +344,41 @@ func (c *phoneBookClient) ListContacts(ctx context.Context, in *ListContactsReq,
 	return out, nil
 }
 
+func (c *phoneBookClient) DeleteContact(ctx context.Context, in *DeleteContactReq, opts ...grpc.CallOption) (*DeleteContactRes, error) {
+	out := new(DeleteContactRes)
+	err := grpc.Invoke(ctx, "/api.PhoneBook/DeleteContact", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *phoneBookClient) ShowContact(ctx context.Context, in *ShowContactReq, opts ...grpc.CallOption) (*ShowContactRes, error) {
+	out := new(ShowContactRes)
+	err := grpc.Invoke(ctx, "/api.PhoneBook/ShowContact", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *phoneBookClient) UpdateContact(ctx context.Context, in *UpdateContactReq, opts ...grpc.CallOption) (*UpdateContactRes, error) {
+	out := new(UpdateContactRes)
+	err := grpc.Invoke(ctx, "/api.PhoneBook/UpdateContact", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for PhoneBook service
 
 type PhoneBookServer interface {
 	CreateContact(context.Context, *CreateContactReq) (*CreateContactRes, error)
 	ListContacts(context.Context, *ListContactsReq) (*ListContactsRes, error)
+	DeleteContact(context.Context, *DeleteContactReq) (*DeleteContactRes, error)
+	ShowContact(context.Context, *ShowContactReq) (*ShowContactRes, error)
+	UpdateContact(context.Context, *UpdateContactReq) (*UpdateContactRes, error)
 }
 
 func RegisterPhoneBookServer(s *grpc.Server, srv PhoneBookServer) {
@@ -294,6 +421,60 @@ func _PhoneBook_ListContacts_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PhoneBook_DeleteContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteContactReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PhoneBookServer).DeleteContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.PhoneBook/DeleteContact",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PhoneBookServer).DeleteContact(ctx, req.(*DeleteContactReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PhoneBook_ShowContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShowContactReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PhoneBookServer).ShowContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.PhoneBook/ShowContact",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PhoneBookServer).ShowContact(ctx, req.(*ShowContactReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PhoneBook_UpdateContact_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateContactReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PhoneBookServer).UpdateContact(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.PhoneBook/UpdateContact",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PhoneBookServer).UpdateContact(ctx, req.(*UpdateContactReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _PhoneBook_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "api.PhoneBook",
 	HandlerType: (*PhoneBookServer)(nil),
@@ -306,6 +487,18 @@ var _PhoneBook_serviceDesc = grpc.ServiceDesc{
 			MethodName: "ListContacts",
 			Handler:    _PhoneBook_ListContacts_Handler,
 		},
+		{
+			MethodName: "DeleteContact",
+			Handler:    _PhoneBook_DeleteContact_Handler,
+		},
+		{
+			MethodName: "ShowContact",
+			Handler:    _PhoneBook_ShowContact_Handler,
+		},
+		{
+			MethodName: "UpdateContact",
+			Handler:    _PhoneBook_UpdateContact_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: fileDescriptor0,
@@ -314,28 +507,33 @@ var _PhoneBook_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("api.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 360 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x93, 0xcf, 0x4e, 0xf2, 0x40,
-	0x14, 0xc5, 0xbf, 0x81, 0x52, 0xe0, 0x02, 0x9f, 0xf5, 0x06, 0xcd, 0x84, 0x15, 0x69, 0x8c, 0x69,
-	0x62, 0xc2, 0xa2, 0xc6, 0x0d, 0xc6, 0x0d, 0x84, 0x44, 0x23, 0x88, 0x69, 0x4c, 0x5c, 0x9a, 0x42,
-	0x26, 0xa1, 0x81, 0x76, 0x86, 0x4e, 0x8d, 0x61, 0xeb, 0xc2, 0xe7, 0x74, 0xeb, 0x5b, 0x98, 0x4e,
-	0x07, 0x84, 0x0a, 0x2f, 0xe0, 0xee, 0xde, 0xdf, 0x39, 0x73, 0xdb, 0x33, 0x7f, 0xa0, 0xea, 0x8b,
-	0xa0, 0x23, 0x62, 0x9e, 0x70, 0x2c, 0xfa, 0x22, 0xb0, 0xbf, 0x08, 0x58, 0xfd, 0x98, 0xf9, 0x09,
-	0xeb, 0xf3, 0x28, 0xf1, 0xa7, 0x89, 0xc7, 0x96, 0x88, 0x60, 0x44, 0x7e, 0xc8, 0x28, 0x69, 0x13,
-	0xa7, 0xea, 0xa9, 0x1a, 0x9b, 0x50, 0x62, 0xa1, 0x1f, 0x2c, 0x68, 0x41, 0xc1, 0xac, 0xc1, 0x2b,
-	0x68, 0x88, 0x19, 0x8f, 0xd8, 0x4b, 0xf4, 0x1a, 0x4e, 0x58, 0x2c, 0x69, 0xb1, 0x5d, 0x74, 0x6a,
-	0xae, 0xd5, 0x49, 0x3f, 0xf3, 0x98, 0x2a, 0x0f, 0x4a, 0xf0, 0xea, 0xe2, 0xa7, 0x91, 0x78, 0x06,
-	0xc6, 0x8c, 0x87, 0x8c, 0x1a, 0x6d, 0xb2, 0xd7, 0xad, 0x54, 0x74, 0xc0, 0x0c, 0xf9, 0x24, 0x58,
-	0x30, 0x5a, 0x3a, 0xe0, 0xd3, 0x7a, 0x3a, 0xef, 0x8d, 0xc7, 0x73, 0x6a, 0x1e, 0x9a, 0x97, 0xaa,
-	0x76, 0xf7, 0x57, 0x54, 0x89, 0xe7, 0x50, 0x9e, 0x66, 0x9d, 0x4a, 0x5b, 0x73, 0xeb, 0x6a, 0xf1,
-	0xda, 0xb1, 0x16, 0xed, 0x63, 0x38, 0x1a, 0x06, 0x32, 0xd1, 0x5c, 0x7a, 0x6c, 0x69, 0x5f, 0xe7,
-	0x91, 0x44, 0x07, 0x2a, 0x7a, 0x81, 0xa4, 0x44, 0xed, 0xc4, 0xee, 0xb8, 0x8d, 0x6a, 0x7f, 0x12,
-	0x28, 0x6b, 0xfa, 0x57, 0xb7, 0xfb, 0x9d, 0x40, 0x6d, 0x8b, 0xe2, 0x29, 0x98, 0xd9, 0x6f, 0xeb,
-	0xa0, 0xba, 0xc3, 0x0e, 0x18, 0xc9, 0x4a, 0x30, 0x95, 0xf4, 0xbf, 0xdb, 0xca, 0x4f, 0xcb, 0xea,
-	0xa7, 0x95, 0x60, 0x9e, 0xf2, 0xd9, 0x17, 0x50, 0xdd, 0x20, 0x04, 0x30, 0x47, 0xe3, 0xde, 0xdd,
-	0x70, 0x60, 0xfd, 0xc3, 0x0a, 0x18, 0xb7, 0xe3, 0xd1, 0xc0, 0x22, 0x69, 0xf5, 0x3c, 0xf6, 0xee,
-	0xad, 0x82, 0xfb, 0x41, 0xb4, 0xbb, 0xc7, 0xf9, 0x1c, 0x6f, 0xa0, 0xb1, 0x73, 0x03, 0xf0, 0x24,
-	0x3b, 0x9e, 0xdc, 0x03, 0x68, 0xed, 0xc5, 0x12, 0xbb, 0x50, 0xdf, 0x3e, 0x71, 0x6c, 0x2a, 0x5b,
-	0xee, 0x5e, 0xb4, 0xf6, 0x51, 0x39, 0x31, 0xd5, 0xa3, 0xbb, 0xfc, 0x0e, 0x00, 0x00, 0xff, 0xff,
-	0x05, 0x35, 0x81, 0xe0, 0x81, 0x03, 0x00, 0x00,
+	// 444 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x54, 0x41, 0x8b, 0xd3, 0x40,
+	0x14, 0x76, 0xda, 0x6c, 0x76, 0xfb, 0xd2, 0x5d, 0xe3, 0x73, 0x95, 0x90, 0x53, 0x09, 0xcb, 0x12,
+	0x10, 0x7a, 0x88, 0x88, 0x52, 0xf1, 0xd2, 0x5a, 0x50, 0x6c, 0xad, 0x44, 0xc5, 0xa3, 0xa4, 0x75,
+	0xa0, 0xa1, 0x4d, 0x66, 0x9a, 0x89, 0x94, 0x5e, 0xfd, 0x5f, 0xfe, 0x17, 0xaf, 0xfe, 0x0b, 0xc9,
+	0x64, 0x5a, 0x9b, 0x31, 0xa5, 0xc5, 0xe3, 0xde, 0xe6, 0x7d, 0xdf, 0x37, 0xef, 0x7b, 0x2f, 0x79,
+	0x6f, 0xa0, 0x15, 0xf1, 0xb8, 0xcb, 0x33, 0x96, 0x33, 0x6c, 0x46, 0x3c, 0xf6, 0x7e, 0x13, 0xb0,
+	0x07, 0x19, 0x8d, 0x72, 0x3a, 0x60, 0x69, 0x1e, 0xcd, 0xf2, 0x90, 0xae, 0x10, 0xc1, 0x48, 0xa3,
+	0x84, 0x3a, 0xa4, 0x43, 0xfc, 0x56, 0x28, 0xcf, 0x78, 0x0d, 0x67, 0x34, 0x89, 0xe2, 0xa5, 0xd3,
+	0x90, 0x60, 0x19, 0xe0, 0x33, 0xb8, 0xe4, 0x73, 0x96, 0xd2, 0xaf, 0xe9, 0xf7, 0x64, 0x4a, 0x33,
+	0xe1, 0x34, 0x3b, 0x4d, 0xdf, 0x0a, 0xec, 0x6e, 0x61, 0xf3, 0xa1, 0x60, 0xde, 0x4b, 0x22, 0x6c,
+	0xf3, 0xbf, 0x81, 0xc0, 0x1b, 0x30, 0xe6, 0x2c, 0xa1, 0x8e, 0xd1, 0x21, 0xb5, 0x6a, 0xc9, 0xa2,
+	0x0f, 0x66, 0xc2, 0xa6, 0xf1, 0x92, 0x3a, 0x67, 0x07, 0x74, 0x8a, 0x2f, 0xf2, 0xad, 0x59, 0xb6,
+	0x70, 0xcc, 0x43, 0xf9, 0x0a, 0xd6, 0xeb, 0xfd, 0xd3, 0xaa, 0xc0, 0x5b, 0x38, 0x9f, 0x95, 0x91,
+	0xec, 0xd6, 0x0a, 0xda, 0xf2, 0xf2, 0x56, 0xb1, 0x25, 0xbd, 0x07, 0x70, 0x7f, 0x14, 0x8b, 0x5c,
+	0xe1, 0x22, 0xa4, 0x2b, 0xef, 0xa5, 0x0e, 0x09, 0xf4, 0xe1, 0x42, 0x5d, 0x10, 0x0e, 0x91, 0x5f,
+	0xa2, 0x9a, 0x6e, 0xc7, 0x7a, 0xb7, 0x60, 0xbf, 0xa6, 0x4b, 0x7a, 0xec, 0xb3, 0x17, 0x35, 0x6b,
+	0xba, 0xd3, 0x6b, 0xbe, 0x81, 0xab, 0x8f, 0x73, 0xb6, 0x3e, 0xe2, 0xf0, 0x42, 0x53, 0x9d, 0x9e,
+	0xbf, 0x07, 0xf6, 0x67, 0xfe, 0xad, 0x3a, 0x3a, 0xff, 0x7f, 0xf7, 0x74, 0xdf, 0x5f, 0x04, 0xce,
+	0x15, 0x78, 0x57, 0x47, 0xf5, 0x07, 0x01, 0x6b, 0x0f, 0xc5, 0xc7, 0x60, 0x96, 0x65, 0xab, 0x46,
+	0x55, 0x84, 0x5d, 0x30, 0xf2, 0x0d, 0xa7, 0xb2, 0xd3, 0xab, 0xc0, 0xd5, 0xb3, 0x95, 0xe7, 0x4f,
+	0x1b, 0x4e, 0x43, 0xa9, 0xf3, 0x9e, 0x40, 0x6b, 0x07, 0x21, 0x80, 0x39, 0x9e, 0xf4, 0xdf, 0x8e,
+	0x86, 0xf6, 0x3d, 0xbc, 0x00, 0xe3, 0xcd, 0x64, 0x3c, 0xb4, 0x49, 0x71, 0xfa, 0x32, 0x09, 0xdf,
+	0xd9, 0x8d, 0xe0, 0x67, 0x43, 0xa9, 0xfb, 0x8c, 0x2d, 0xf0, 0x15, 0x5c, 0x56, 0xb6, 0x07, 0x1f,
+	0x95, 0x7f, 0x47, 0x7b, 0x3c, 0xdc, 0x5a, 0x58, 0x60, 0x0f, 0xda, 0xfb, 0xdb, 0x82, 0xd7, 0x52,
+	0xa6, 0xed, 0x94, 0x5b, 0x87, 0x8a, 0xc2, 0xba, 0xb2, 0x04, 0xca, 0x5a, 0x5f, 0x20, 0xb7, 0x16,
+	0x16, 0xf8, 0x1c, 0xac, 0xbd, 0x09, 0xc7, 0x87, 0x52, 0x55, 0xdd, 0x0c, 0xb7, 0x06, 0x94, 0xbe,
+	0x95, 0x21, 0x55, 0xbe, 0xfa, 0xd0, 0xbb, 0xb5, 0xb0, 0x98, 0x9a, 0xf2, 0x9d, 0x7d, 0xfa, 0x27,
+	0x00, 0x00, 0xff, 0xff, 0x0c, 0xa9, 0xe2, 0x36, 0x74, 0x05, 0x00, 0x00,
 }
