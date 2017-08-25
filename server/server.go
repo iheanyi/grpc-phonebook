@@ -40,12 +40,21 @@ func (svc *server) CreateContact(ctx oldctx.Context, req *api.CreateContactReq) 
 		Name:         req.Name,
 		Email:        req.Email,
 		PhoneNumbers: req.PhoneNumbers,
+		Home:         req.Home,
+		Mobile:       req.Mobile,
+		Work:         req.Work,
 	}
 
 	svc.contactsByNameMu.Lock()
 	defer svc.contactsByNameMu.Unlock()
+
+	if existingContact, ok := svc.contactsByName[contact.Name]; !ok {
+		svc.contacts = append(svc.contacts, contact)
+	} else if existingContact == contact {
+		return nil, api.ErrorDuplicateContact
+	}
+
 	svc.contactsByName[contact.Name] = contact
-	svc.contacts = append(svc.contacts, contact)
 	res := &api.CreateContactRes{
 		Contact: contact,
 	}
