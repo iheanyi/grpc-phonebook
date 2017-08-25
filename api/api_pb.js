@@ -1501,12 +1501,19 @@ proto.api.ShowContactRes.prototype.hasContact = function() {
  * @constructor
  */
 proto.api.UpdateContactReq = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.api.UpdateContactReq.repeatedFields_, null);
 };
 goog.inherits(proto.api.UpdateContactReq, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.api.UpdateContactReq.displayName = 'proto.api.UpdateContactReq';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.api.UpdateContactReq.repeatedFields_ = [3];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -1535,7 +1542,13 @@ proto.api.UpdateContactReq.prototype.toObject = function(opt_includeInstance) {
  */
 proto.api.UpdateContactReq.toObject = function(includeInstance, msg) {
   var f, obj = {
-    contact: (f = msg.getContact()) && proto.api.Contact.toObject(includeInstance, f)
+    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    email: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    phoneNumbersList: jspb.Message.toObjectList(msg.getPhoneNumbersList(),
+    proto.api.PhoneNumber.toObject, includeInstance),
+    home: (f = msg.getHome()) && proto.api.PhoneNumber.toObject(includeInstance, f),
+    mobile: (f = msg.getMobile()) && proto.api.PhoneNumber.toObject(includeInstance, f),
+    work: (f = msg.getWork()) && proto.api.PhoneNumber.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1573,9 +1586,32 @@ proto.api.UpdateContactReq.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new proto.api.Contact;
-      reader.readMessage(value,proto.api.Contact.deserializeBinaryFromReader);
-      msg.setContact(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setName(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
+    case 3:
+      var value = new proto.api.PhoneNumber;
+      reader.readMessage(value,proto.api.PhoneNumber.deserializeBinaryFromReader);
+      msg.addPhoneNumbers(value);
+      break;
+    case 4:
+      var value = new proto.api.PhoneNumber;
+      reader.readMessage(value,proto.api.PhoneNumber.deserializeBinaryFromReader);
+      msg.setHome(value);
+      break;
+    case 5:
+      var value = new proto.api.PhoneNumber;
+      reader.readMessage(value,proto.api.PhoneNumber.deserializeBinaryFromReader);
+      msg.setMobile(value);
+      break;
+    case 6:
+      var value = new proto.api.PhoneNumber;
+      reader.readMessage(value,proto.api.PhoneNumber.deserializeBinaryFromReader);
+      msg.setWork(value);
       break;
     default:
       reader.skipField();
@@ -1615,35 +1651,136 @@ proto.api.UpdateContactReq.prototype.serializeBinary = function() {
  */
 proto.api.UpdateContactReq.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getContact();
+  f = this.getName();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getPhoneNumbersList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.api.PhoneNumber.serializeBinaryToWriter
+    );
+  }
+  f = this.getHome();
   if (f != null) {
     writer.writeMessage(
-      1,
+      4,
       f,
-      proto.api.Contact.serializeBinaryToWriter
+      proto.api.PhoneNumber.serializeBinaryToWriter
+    );
+  }
+  f = this.getMobile();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      proto.api.PhoneNumber.serializeBinaryToWriter
+    );
+  }
+  f = this.getWork();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      proto.api.PhoneNumber.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional Contact contact = 1;
- * @return {?proto.api.Contact}
+ * optional string name = 1;
+ * @return {string}
  */
-proto.api.UpdateContactReq.prototype.getContact = function() {
-  return /** @type{?proto.api.Contact} */ (
-    jspb.Message.getWrapperField(this, proto.api.Contact, 1));
+proto.api.UpdateContactReq.prototype.getName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {?proto.api.Contact|undefined} value */
-proto.api.UpdateContactReq.prototype.setContact = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
+/** @param {string} value */
+proto.api.UpdateContactReq.prototype.setName = function(value) {
+  jspb.Message.setField(this, 1, value);
 };
 
 
-proto.api.UpdateContactReq.prototype.clearContact = function() {
-  this.setContact(undefined);
+/**
+ * optional string email = 2;
+ * @return {string}
+ */
+proto.api.UpdateContactReq.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.api.UpdateContactReq.prototype.setEmail = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated PhoneNumber phone_numbers = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.api.PhoneNumber>}
+ */
+proto.api.UpdateContactReq.prototype.getPhoneNumbersList = function() {
+  return /** @type{!Array.<!proto.api.PhoneNumber>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.api.PhoneNumber, 3));
+};
+
+
+/** @param {!Array.<!proto.api.PhoneNumber>} value */
+proto.api.UpdateContactReq.prototype.setPhoneNumbersList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.api.PhoneNumber=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.api.PhoneNumber}
+ */
+proto.api.UpdateContactReq.prototype.addPhoneNumbers = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.api.PhoneNumber, opt_index);
+};
+
+
+proto.api.UpdateContactReq.prototype.clearPhoneNumbersList = function() {
+  this.setPhoneNumbersList([]);
+};
+
+
+/**
+ * optional PhoneNumber home = 4;
+ * @return {?proto.api.PhoneNumber}
+ */
+proto.api.UpdateContactReq.prototype.getHome = function() {
+  return /** @type{?proto.api.PhoneNumber} */ (
+    jspb.Message.getWrapperField(this, proto.api.PhoneNumber, 4));
+};
+
+
+/** @param {?proto.api.PhoneNumber|undefined} value */
+proto.api.UpdateContactReq.prototype.setHome = function(value) {
+  jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+proto.api.UpdateContactReq.prototype.clearHome = function() {
+  this.setHome(undefined);
 };
 
 
@@ -1651,8 +1788,68 @@ proto.api.UpdateContactReq.prototype.clearContact = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.api.UpdateContactReq.prototype.hasContact = function() {
-  return jspb.Message.getField(this, 1) != null;
+proto.api.UpdateContactReq.prototype.hasHome = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional PhoneNumber mobile = 5;
+ * @return {?proto.api.PhoneNumber}
+ */
+proto.api.UpdateContactReq.prototype.getMobile = function() {
+  return /** @type{?proto.api.PhoneNumber} */ (
+    jspb.Message.getWrapperField(this, proto.api.PhoneNumber, 5));
+};
+
+
+/** @param {?proto.api.PhoneNumber|undefined} value */
+proto.api.UpdateContactReq.prototype.setMobile = function(value) {
+  jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+proto.api.UpdateContactReq.prototype.clearMobile = function() {
+  this.setMobile(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.api.UpdateContactReq.prototype.hasMobile = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional PhoneNumber work = 6;
+ * @return {?proto.api.PhoneNumber}
+ */
+proto.api.UpdateContactReq.prototype.getWork = function() {
+  return /** @type{?proto.api.PhoneNumber} */ (
+    jspb.Message.getWrapperField(this, proto.api.PhoneNumber, 6));
+};
+
+
+/** @param {?proto.api.PhoneNumber|undefined} value */
+proto.api.UpdateContactReq.prototype.setWork = function(value) {
+  jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+proto.api.UpdateContactReq.prototype.clearWork = function() {
+  this.setWork(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.api.UpdateContactReq.prototype.hasWork = function() {
+  return jspb.Message.getField(this, 6) != null;
 };
 
 
