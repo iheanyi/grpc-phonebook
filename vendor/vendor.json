@@ -139,12 +139,6 @@
 			"revisionTime": "2017-08-25T20:51:53Z"
 		},
 		{
-			"checksumSHA1": "taQS6p0HLyrMJZc0hvxPLrcBTVI=",
-			"comment": "v1.2.0-227-g0b4b292",
-			"path": "google.golang.org/grpc/grpclb/messages_only/grpc_lb_v1",
-			"revision": "0b4b292f3a440791d15e33b79d98ee984e775757"
-		},
-		{
 			"checksumSHA1": "ntHev01vgZgeIh5VFRmbLx/BSTo=",
 			"comment": "v1.2.0-227-g0b4b292",
 			"path": "google.golang.org/grpc/grpclog",
