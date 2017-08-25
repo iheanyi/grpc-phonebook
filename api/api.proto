@@ -11,6 +11,10 @@ message CreateContactReq {
   string name = 1;
   string email = 2;
   repeated PhoneNumber phone_numbers = 3;
+
+  PhoneNumber home = 4;
+  PhoneNumber mobile = 5;
+  PhoneNumber work = 6;
 }
 
 message CreateContactRes {
@@ -29,6 +33,9 @@ message Contact {
   string email = 2;
 
   repeated PhoneNumber phone_numbers = 3;
+  PhoneNumber home = 4;
+  PhoneNumber mobile = 5;
+  PhoneNumber work = 6;
 }
 
 message PhoneNumber {
