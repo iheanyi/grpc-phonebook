@@ -29,6 +29,10 @@ func New() api.PhoneBookServer {
 						Type:   api.PhoneNumber_HOME,
 					},
 				},
+				Home: &api.PhoneNumber{
+					Number: "843-340-0830",
+					Type:   api.PhoneNumber_HOME,
+				},
 			},
 		},
 	}
