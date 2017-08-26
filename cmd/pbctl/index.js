@@ -15,6 +15,18 @@ function phoneNumberArr(val, numbers) {
   return numbers;
 }
 
+function listContacts() {
+  var request = new api.ListContactsReq();
+  client.listContacts(request, function(err, response) {
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+
+    printContacts(formatContacts(response.contacts));
+  });
+}
+
 function printHeader() {
   console.log("Name\t\tEmail\t\tHome\t\tMobile\t\tWork\t\t");
 }
@@ -96,27 +108,47 @@ program
 
     client.createContact(request, function(err, response) {
       if (err) {
-        console.log("There's an error.");
-        console.log(err);
+        console.error(err.message);
         return;
       }
 
-      console.log(response);
+      printContacts(formatContacts([response.contact]));
     });
   });
 
 program
   .command('list')
   .action(function() {
-    var request = new api.ListContactsReq();
-    client.listContacts(request, function(err, response) {
+    listContacts();
+  });
+
+program
+  .command('show <name>')
+  .action(function(name) {
+    var request = new api.ShowContactReq();
+    request.name = name;
+    client.showContact(request, function(err, response) {
       if (err) {
-        console.log("There's an error");
-        console.log(err);
+        console.error(err.message);
         return;
       }
 
-      printContacts(formatContacts(response.contacts));
+      printContacts(formatContacts([response.contact]));
+    });
+  });
+
+program
+  .command('delete <name>')
+  .action(function(name) {
+    var request = new api.DeleteContactReq();
+    request.name = name;
+    client.deleteContact(request, function(err, response) {
+      if (err) {
+        console.error(err.message);
+        return;
+      }
+
+      listContacts();
     });
   });
 
