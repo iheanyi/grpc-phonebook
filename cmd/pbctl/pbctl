@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var PROTO_PATH = __dirname + '/../../api/api.proto';
 var grpc = require('grpc');
 var program = require('commander');
