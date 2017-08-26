@@ -44,6 +44,10 @@ function formatContacts(contacts) {
 }
 
 function printContacts(contacts) {
+  if (contacts.length === 0) {
+    console.log("No contacts exist");
+    return;
+  }
   console.table(contacts);
 }
 
