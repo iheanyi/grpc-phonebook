@@ -20,8 +20,24 @@ type server struct {
 }
 
 func New() api.PhoneBookServer {
+	contactsByName := make(map[string]*api.Contact)
+	contactsByName["Iheanyi Ekechukwu"] = &api.Contact{
+		Name:  "Iheanyi Ekechukwu",
+		Email: "me@iheanyi.com",
+		PhoneNumbers: []*api.PhoneNumber{
+			{
+				Number: "123-456-7890",
+				Type:   api.PhoneNumber_HOME,
+			},
+		},
+		Home: &api.PhoneNumber{
+			Number: "843-340-0830",
+			Type:   api.PhoneNumber_HOME,
+		},
+	}
+
 	return &server{
-		contactsByName: make(map[string]*api.Contact),
+		contactsByName: contactsByName,
 		contacts: []*api.Contact{
 			{
 				Name:  "Iheanyi Ekechukwu",
