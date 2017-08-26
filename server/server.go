@@ -4,13 +4,16 @@ import (
 	"log"
 	"sync"
 
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
 	oldctx "golang.org/x/net/context"
 
 	api "github.com/iheanyi/grpc-phonebook/api"
 )
 
 type server struct {
-	contactsByNameMu sync.Mutex
+	contactsByNameMu sync.RWMutex
 	contactsByName   map[string]*api.Contact
 
 	contacts []*api.Contact
@@ -68,9 +71,52 @@ func (svc *server) CreateContact(ctx oldctx.Context, req *api.CreateContactReq) 
 }
 
 func (svc *server) ListContacts(ctx oldctx.Context, req *api.ListContactsReq) (*api.ListContactsRes, error) {
+	var contacts []*api.Contact
+	// We're going to map the keys to an array.
+	for _, contact := range svc.contactsByName {
+		contacts = append(contacts, contact)
+	}
+
 	res := &api.ListContactsRes{
-		Contacts: svc.contacts,
+		Contacts: contacts,
 	}
 
 	return res, nil
+}
+
+func (svc *server) DeleteContact(ctx oldctx.Context, req *api.DeleteContactReq) (*api.DeleteContactRes, error) {
+	svc.contactsByNameMu.Lock()
+	defer svc.contactsByNameMu.Unlock()
+
+	contact, ok := svc.contactsByName[req.Name]
+	if !ok {
+		return nil, api.ErrorNotFound
+	}
+
+	delete(svc.contactsByName, req.Name)
+	res := &api.DeleteContactRes{
+		Contact: contact,
+	}
+
+	return res, nil
+}
+
+func (svc *server) ShowContact(ctx oldctx.Context, req *api.ShowContactReq) (*api.ShowContactRes, error) {
+	svc.contactsByNameMu.RLock()
+	defer svc.contactsByNameMu.RUnlock()
+
+	contact, ok := svc.contactsByName[req.Name]
+	if !ok {
+		return nil, api.ErrorNotFound
+	}
+
+	res := &api.ShowContactRes{
+		Contact: contact,
+	}
+
+	return res, nil
+}
+
+func (svc *server) UpdateContact(ctx oldctx.Context, req *api.UpdateContactReq) (*api.UpdateContactRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "not implemented")
 }
