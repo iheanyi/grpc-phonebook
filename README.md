@@ -8,7 +8,7 @@ This requires [govendor](https://github.com/kardianos/govendor) to work properly
 
 ### Node.js
 
-You can run the command line client by doing `./cmd/pbctl/pbctl [options] <command>`.
+Install dependencies using `npm` or `yarn`. You can run the command line client by doing `./cmd/pbctl/pbctl [options] <command>`.
 
 ```
   Usage: pbctl [options] [command]
