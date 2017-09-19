@@ -22,7 +22,6 @@ message CreateContactReq {
 
 message CreateContactRes {
   Contact contact = 1;
-
 }
 
 message ListContactsReq {}

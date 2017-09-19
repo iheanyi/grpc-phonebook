@@ -1,3 +1,5 @@
+// server/server.go
+
 package server
 
 import (
@@ -12,11 +14,10 @@ import (
 	api "github.com/iheanyi/grpc-phonebook/api"
 )
 
+// Use in-memory DB for simplicity
 type server struct {
 	contactsByNameMu sync.RWMutex
 	contactsByName   map[string]*api.Contact
-
-	contacts []*api.Contact
 }
 
 func New() api.PhoneBookServer {
@@ -38,27 +39,14 @@ func New() api.PhoneBookServer {
 
 	return &server{
 		contactsByName: contactsByName,
-		contacts: []*api.Contact{
-			{
-				Name:  "Iheanyi Ekechukwu",
-				Email: "me@iheanyi.com",
-				PhoneNumbers: []*api.PhoneNumber{
-					{
-						Number: "123-456-7890",
-						Type:   api.PhoneNumber_HOME,
-					},
-				},
-				Home: &api.PhoneNumber{
-					Number: "843-340-0830",
-					Type:   api.PhoneNumber_HOME,
-				},
-			},
-		},
 	}
 }
 
 func (svc *server) CreateContact(ctx oldctx.Context, req *api.CreateContactReq) (*api.CreateContactRes, error) {
 	log.Printf("Creating contact %v", req)
+	if len(req.Name) == 0 {
+		return nil, status.Errorf(codes.InvalidArgument, "name cannot be blank")
+	}
 	contact := &api.Contact{
 		Name:         req.Name,
 		Email:        req.Email,
@@ -66,15 +54,6 @@ func (svc *server) CreateContact(ctx oldctx.Context, req *api.CreateContactReq) 
 		Home:         req.Home,
 		Mobile:       req.Mobile,
 		Work:         req.Work,
-	}
-
-	svc.contactsByNameMu.Lock()
-	defer svc.contactsByNameMu.Unlock()
-
-	if existingContact, ok := svc.contactsByName[contact.Name]; !ok {
-		svc.contacts = append(svc.contacts, contact)
-	} else if existingContact == contact {
-		return nil, api.ErrorDuplicateContact
 	}
 
 	svc.contactsByName[contact.Name] = contact
